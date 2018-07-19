@@ -1,0 +1,22 @@
+######################################
+### Configure programming language ###
+######################################
+language: kotlin
+
+##################################
+### Make sure using Oracle JDK ###
+##################################
+jdk:
+  - oraclejdk8
+
+###################################
+### Disable Email notifications ###
+###################################
+notifications:
+  email: false
+
+###########################
+### Actual Build Script ###
+###########################
+script:
+  - ./gradlew check
