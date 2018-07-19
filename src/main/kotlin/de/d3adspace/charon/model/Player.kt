@@ -1,6 +1,8 @@
 package de.d3adspace.charon.model
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.index.Indexed
+import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
 
 /**
@@ -8,6 +10,7 @@ import java.util.*
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-data class Player(@Id private val id: Long,
-                  private val uniqueId: UUID,
-                  private val name: String)
+@Document
+data class Player(@Id val id: String?,
+                  @Indexed(unique = true) val uniqueId: String,
+                  val name: String)

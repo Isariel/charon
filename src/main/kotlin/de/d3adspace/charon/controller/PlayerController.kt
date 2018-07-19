@@ -4,9 +4,7 @@ import de.d3adspace.charon.model.Player
 import de.d3adspace.charon.service.PlayerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 /**
  * Rest controller that exposes player resources to the outside world.
@@ -26,5 +24,26 @@ constructor(private val playerService: PlayerService) {
         return playerOptional
                 .map { ResponseEntity.ok(it) }
                 .orElseGet { ResponseEntity.notFound().build<Player>() }
+    }
+
+    @DeleteMapping("/player/{id}")
+    fun onDeletePlayerById(@PathVariable("id") id: Long): ResponseEntity<Player> {
+
+        val playerOptional = playerService.getPlayerById(id)
+
+        return playerOptional
+                .map {
+                    playerService.deletePlayerById(id)
+                    return@map ResponseEntity.ok(it)
+                }
+                .orElseGet { ResponseEntity.notFound().build<Player>() }
+    }
+
+    @PostMapping("/player")
+    fun onCreatePlayer(@RequestBody player: Player): ResponseEntity<Player> {
+
+        val savedPlayer = playerService.createPlayer(player)
+
+        return ResponseEntity.ok(savedPlayer)
     }
 }
