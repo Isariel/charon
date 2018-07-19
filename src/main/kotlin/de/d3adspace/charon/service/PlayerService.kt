@@ -86,5 +86,15 @@ constructor(private val playerRepository: PlayerRepository) {
 
         return playerRepository.save(player)
     }
+
+    /**
+     * Get all players.
+     *
+     * @return MutableList<Player> The players.
+     */
+    fun getPlayers(): MutableList<Player> {
+
+        return playerRepository.findAll()
+    }
 }
 

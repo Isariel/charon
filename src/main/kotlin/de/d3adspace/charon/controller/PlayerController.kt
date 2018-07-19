@@ -27,6 +27,14 @@ constructor(private val playerService: PlayerService) {
         private val PLAYER_NOT_FOUND = ResponseEntity.notFound().build<Player>()
     }
 
+    @GetMapping("/players")
+    fun onGetPlayers(): ResponseEntity<List<Player>> {
+
+        val players = playerService.getPlayers()
+
+        return ResponseEntity.ok(players)
+    }
+
     @GetMapping("/player", params = ["uuid"])
     fun onGetPlayerByUniqueId(@RequestParam("uuid") uniqueId: String): ResponseEntity<Player> {
 
