@@ -20,4 +20,12 @@ interface PlayerRepository : MongoRepository<Player, String> {
      * @return Optional<Player> The result.
      */
     fun findByName(name: String): Optional<Player>
+
+    /**
+     * Find a player by its uuid.
+     *
+     * @param uniqueId String The unique id.
+     * @return Optional<Player> The result.
+     */
+    fun findByUniqueId(uniqueId: String): Optional<Player>
 }

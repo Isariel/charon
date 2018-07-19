@@ -64,5 +64,16 @@ constructor(private val playerRepository: PlayerRepository) {
 
         return playerRepository.findByName(name)
     }
+
+    /**
+     * Get a player by its uuid.
+     *
+     * @param uniqueId String The UUID.
+     * @return Optional<Player> The result.
+     */
+    fun getPlayerByUniqueId(uniqueId: String): Optional<Player> {
+
+        return playerRepository.findByUniqueId(uniqueId)
+    }
 }
 

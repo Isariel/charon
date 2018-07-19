@@ -16,6 +16,27 @@ class PlayerController
 @Autowired
 constructor(private val playerService: PlayerService) {
 
+    /**
+     * Companion object containing some general constants and meta information.
+     */
+    companion object {
+
+        /**
+         * Common response that represents a player that could not be found.
+         */
+        private val PLAYER_NOT_FOUND = ResponseEntity.notFound().build<Player>()
+    }
+
+    @GetMapping("/player", params = ["uuid"])
+    fun onGetPlayerByUniqueId(@RequestParam("uuid") uniqueId: String): ResponseEntity<Player> {
+
+        val playerOptional = playerService.getPlayerByUniqueId(uniqueId)
+
+        return playerOptional
+                .map { ResponseEntity.ok(it) }
+                .orElseGet { PLAYER_NOT_FOUND }
+    }
+
     @GetMapping("/player", params = ["name"])
     fun onGetPlayerByName(@RequestParam("name") name: String): ResponseEntity<Player> {
 
@@ -23,7 +44,7 @@ constructor(private val playerService: PlayerService) {
 
         return playerOptional
                 .map { ResponseEntity.ok(it) }
-                .orElseGet { ResponseEntity.notFound().build<Player>() }
+                .orElseGet { PLAYER_NOT_FOUND }
     }
 
     @GetMapping("/player/{id}")
@@ -33,7 +54,7 @@ constructor(private val playerService: PlayerService) {
 
         return playerOptional
                 .map { ResponseEntity.ok(it) }
-                .orElseGet { ResponseEntity.notFound().build<Player>() }
+                .orElseGet { PLAYER_NOT_FOUND }
     }
 
     @DeleteMapping("/player/{id}")
@@ -46,7 +67,7 @@ constructor(private val playerService: PlayerService) {
                     playerService.deletePlayerById(id)
                     return@map ResponseEntity.ok(it)
                 }
-                .orElseGet { ResponseEntity.notFound().build<Player>() }
+                .orElseGet { PLAYER_NOT_FOUND }
     }
 
     @PostMapping("/player")
