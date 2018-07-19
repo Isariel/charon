@@ -77,4 +77,11 @@ constructor(private val playerService: PlayerService) {
 
         return ResponseEntity.ok(savedPlayer)
     }
+
+    @PatchMapping("/player")
+    fun onPatchPlayer(@RequestBody player: Player): ResponseEntity<Player> {
+
+        val savedPlayer = playerService.savePlayer(player)
+        return ResponseEntity.ok(savedPlayer)
+    }
 }

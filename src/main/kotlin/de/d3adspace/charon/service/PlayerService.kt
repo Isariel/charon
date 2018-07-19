@@ -75,5 +75,16 @@ constructor(private val playerRepository: PlayerRepository) {
 
         return playerRepository.findByUniqueId(uniqueId)
     }
+
+    /**
+     * Update the given player.
+     *
+     * @param player Player The player.
+     * @return Player The updated player.
+     */
+    fun savePlayer(player: Player): Player {
+
+        return playerRepository.save(player)
+    }
 }
 
