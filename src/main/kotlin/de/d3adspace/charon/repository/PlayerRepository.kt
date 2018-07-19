@@ -13,5 +13,11 @@ import java.util.*
 @Repository
 interface PlayerRepository : MongoRepository<Player, String> {
 
-
+    /**
+     * Find a player by its name.
+     *
+     * @param name String The name of the player.
+     * @return Optional<Player> The result.
+     */
+    fun findByName(name: String): Optional<Player>
 }

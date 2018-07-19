@@ -28,7 +28,7 @@ constructor(private val playerRepository: PlayerRepository) {
      * @param id Long The primary id.
      * @return Optional<Player> The result.
      */
-    fun getPlayerById(id: Long): Optional<Player> {
+    fun getPlayerById(id: String): Optional<Player> {
 
         return playerRepository.findById(id)
     }
@@ -38,7 +38,7 @@ constructor(private val playerRepository: PlayerRepository) {
      *
      * @param id Long The primary id.
      */
-    fun deletePlayerById(id: Long) {
+    fun deletePlayerById(id: String) {
 
         return playerRepository.deleteById(id)
     }
@@ -51,7 +51,18 @@ constructor(private val playerRepository: PlayerRepository) {
      */
     fun createPlayer(player: Player): Player {
 
-        return playerRepository.insert(player);
+        return playerRepository.insert(player)
+    }
+
+    /**
+     * Get a player by its name.
+     *
+     * @param name String The name.
+     * @return Optional<Player> The result.
+     */
+    fun getPlayerByName(name: String): Optional<Player> {
+
+        return playerRepository.findByName(name)
     }
 }
 

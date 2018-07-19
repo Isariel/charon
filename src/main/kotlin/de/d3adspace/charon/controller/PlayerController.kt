@@ -16,8 +16,18 @@ class PlayerController
 @Autowired
 constructor(private val playerService: PlayerService) {
 
+    @GetMapping("/player", params = ["name"])
+    fun onGetPlayerByName(@RequestParam("name") name: String): ResponseEntity<Player> {
+
+        val playerOptional = playerService.getPlayerByName(name)
+
+        return playerOptional
+                .map { ResponseEntity.ok(it) }
+                .orElseGet { ResponseEntity.notFound().build<Player>() }
+    }
+
     @GetMapping("/player/{id}")
-    fun onGetPlayerById(@PathVariable("id") id: Long): ResponseEntity<Player> {
+    fun onGetPlayerById(@PathVariable("id") id: String): ResponseEntity<Player> {
 
         val playerOptional = playerService.getPlayerById(id)
 
@@ -27,7 +37,7 @@ constructor(private val playerService: PlayerService) {
     }
 
     @DeleteMapping("/player/{id}")
-    fun onDeletePlayerById(@PathVariable("id") id: Long): ResponseEntity<Player> {
+    fun onDeletePlayerById(@PathVariable("id") id: String): ResponseEntity<Player> {
 
         val playerOptional = playerService.getPlayerById(id)
 
